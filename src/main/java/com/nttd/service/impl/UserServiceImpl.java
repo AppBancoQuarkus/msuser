@@ -99,6 +99,7 @@ public class UserServiceImpl  implements UserService {
         Uni<BankCardResponse> responsecard = bankCardApi.getBankCardById(userEntity.getIdcard());
         return responsecard.flatMap(r->{
                 
+            // validar que el pin sea de la tarjeta y tenga 6 digitos
             if( r.getBankCardEntity().getPin() == userEntity.getPin() &&
                 userEntity.getPassword().length() == 6){ 
 
@@ -106,6 +107,7 @@ public class UserServiceImpl  implements UserService {
 			        params.put("code_customer", userEntity.getIdcustomer());
 			        params.put("code_card", userEntity.getIdcard());
                     params.put("state", flag_activo);
+                    // validar que no tenga duplicidad de registro multicanal.
                     Uni<Long> countCard = UserEntity
                                 .find("code_customer = :code_customer and code_card = :code_card and state = :state",
                                       params).count();
