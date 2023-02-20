@@ -1,15 +1,26 @@
 package com.nttd.service;
 
-import com.nttd.dto.ResponseDto;
-import com.nttd.dto.UserDto;
+
+import com.nttd.dto.ValidationUserDto;
+import com.nttd.entity.UserEntity;
+
+import io.smallrye.mutiny.Uni;
 
 
 public interface UserService {
 
-    public ResponseDto getAllUser(UserDto userDto);
+    public Uni<ValidationUserDto> getValidationCard(String cardnumber);
 
-    public ResponseDto addUser(UserDto userDto);
+    public Uni<ValidationUserDto> getValidationCustomer(String tipocliente,
+                                                        String customernumber);
 
-    public ResponseDto updateUser(long id,UserDto userDto);
+    public Uni<Boolean> getAccesoMulticanal(String cardnumber,
+                                                        String password);
+
+    public Uni<UserEntity> addUser(UserEntity userEntity);
+
+    public Uni<UserEntity> updateUser(String id,UserEntity userEntity);
+
+    public Uni<UserEntity> deleteUser(String id);
 
 }

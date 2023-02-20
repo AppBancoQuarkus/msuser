@@ -12,4 +12,12 @@ public class CustomerRequest {
 	private String name;
 	private String lastname;
 
+	
+	public CustomerRequest(String typeCustomer, String numberDocument) {
+		this.typeCustomer = typeCustomer;
+		this.numberDocument = numberDocument;
+	}
+
+	
+
 }
