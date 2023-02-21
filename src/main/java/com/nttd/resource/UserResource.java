@@ -3,8 +3,10 @@ package com.nttd.resource;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.jboss.logging.Logger;
 
+import com.nttd.api.response.AuditResponse;
 import com.nttd.dto.ValidationUserDto;
 import com.nttd.entity.UserEntity;
+import com.nttd.service.IncrementService;
 import com.nttd.service.UserService;
 
 import io.smallrye.mutiny.Uni;
@@ -26,11 +28,29 @@ public class UserResource {
    @Inject
    UserService userService;
 
+   @Inject
+   IncrementService incrementService;
 
+  
    @Inject
    Logger logger;
 
- 
+   @GET
+   @Path("/redis/{key}")
+   public Uni<String> get(@PathParam("key") String key){
+        logger.info("Iniciando el metodo redis get - Resource.");
+        return incrementService.get(key);
+   }
+
+
+   @POST
+   @Path("/auditar/testing")
+   @Operation(summary = "Agregar la auditoria de prueba",description = "Permite agregar la auditoria de prueba")
+   public Uni<AuditResponse> addAuditar() {
+        logger.info("Iniciando el metodo de registrar auditoria - Resource.");
+        return userService.addAuditar();
+   }
+
    /* obtener el usuario filtrando por Tarjeta*/
     @GET
     @Path("/{cardnumber}")

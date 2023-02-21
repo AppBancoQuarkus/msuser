@@ -3,6 +3,7 @@ package com.nttd.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.nttd.api.request.AuditRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class ValidationUserDto {
     private long idcard;
     private int pin;
     private String duedate;
+    private AuditRequest auditRequest;
 
     public ValidationUserDto(boolean respuesta) {
         this.respuesta = respuesta;
